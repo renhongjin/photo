@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.ResumeMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.Resume" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PERSONAL_ID" property="personalId" jdbcType="VARCHAR" />
+    <result column="HEAD" property="head" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="PROFESSIONAL" property="professional" jdbcType="VARCHAR" />
+    <result column="SCHOOL" property="school" jdbcType="VARCHAR" />
+    <result column="DEGREE" property="degree" jdbcType="VARCHAR" />
+    <result column="QQ" property="qq" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="CITY" property="city" jdbcType="VARCHAR" />
+    <result column="BIRTHDAY" property="birthday" jdbcType="VARCHAR" />
+    <result column="WORK_YEAR" property="workYear" jdbcType="VARCHAR" />
+    <result column="MARRIAGE" property="marriage" jdbcType="VARCHAR" />
+    <result column="ORIGIN" property="origin" jdbcType="VARCHAR" />
+    <result column="IDEAL_JOB" property="idealJob" jdbcType="VARCHAR" />
+    <result column="IDEAL_PLACE" property="idealPlace" jdbcType="VARCHAR" />
+    <result column="IDEAL_MONEY" property="idealMoney" jdbcType="INTEGER" />
+    <result column="WORK_WAY" property="workWay" jdbcType="INTEGER" />
+    <result column="FREE_TRAVEL" property="freeTravel" jdbcType="INTEGER" />
+    <result column="PRO_PLACE" property="proPlace" jdbcType="INTEGER" />
+    <result column="TAG" property="tag" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="HEIGHT" property="height" jdbcType="VARCHAR" />
+    <result column="WORK_EXP" property="workExp" jdbcType="LONGVARCHAR" />
+    <result column="DESC" property="desc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSONAL_ID, HEAD, NAME, SEX, PROFESSIONAL, SCHOOL, DEGREE, QQ, PHONE, EMAIL, 
+    CITY, BIRTHDAY, WORK_YEAR, MARRIAGE, ORIGIN, IDEAL_JOB, IDEAL_PLACE, IDEAL_MONEY, 
+    WORK_WAY, FREE_TRAVEL, PRO_PLACE, TAG, STATUS, HEIGHT,WORK_EXP, `DESC`
+  </sql>
+  
+  <sql id="selectByParamsWhere">
+  	<trim suffixOverrides=" and | or">
+  		<where>
+  			<if test="id !=null">
+					ID = #{id,jdbcType=VARCHAR} and
+			</if>       
+			<if test="personalId !=null">
+					PERSONAL_ID = #{personalId,jdbcType=VARCHAR} and
+			</if>
+			<if test="head !=null">
+					HEAD = #{head,jdbcType=VARCHAR} and
+			</if>
+			<if test="name !=null">
+					NAME = #{name,jdbcType=VARCHAR} and
+			</if>
+			<if test="sex !=null">
+					SEX = #{sex,jdbcType=INTEGER} and
+			</if>
+			<if test="professional !=null">
+					PROFESSIONAL = #{professional,jdbcType=VARCHAR} and
+			</if>
+			<if test="school !=null">
+					SCHOOL = #{school,jdbcType=VARCHAR} and
+			</if>
+			<if test="degree !=null">
+					DEGREE = #{degree,jdbcType=VARCHAR} and
+			</if>
+			<if test="qq !=null">
+					QQ = #{qq,jdbcType=VARCHAR} and
+			</if>    
+			<if test="phone !=null">
+					PHONE = #{phone,jdbcType=VARCHAR} and
+			</if>
+			<if test="email !=null">
+					EMAIL = #{email,jdbcType=VARCHAR} and
+			</if>
+			<if test="city !=null">
+					CITY = #{city,jdbcType=VARCHAR} and
+			</if>
+			<if test="birthday !=null">
+					BIRTHDAY = #{birthday,jdbcType=VARCHAR} and
+			</if>    
+			<if test="workYear !=null">
+					WORK_YEAR = #{workYear,jdbcType=VARCHAR} and
+			</if>
+			<if test="marriage !=null">
+					MARRIAGE = #{marriage,jdbcType=VARCHAR} and
+			</if>
+			<if test="origin !=null">
+					ORIGIN = #{origin,jdbcType=VARCHAR} and
+			</if>
+			<if test="idealJob !=null">
+					IDEAL_JOB = #{idealJob,jdbcType=VARCHAR} and
+			</if>
+			<if test="idealPlace !=null">
+					IDEAL_PLACE = #{idealPlace,jdbcType=VARCHAR} and
+			</if>      
+			<if test="idealMoney !=null">
+					IDEAL_MONEY = #{idealMoney,jdbcType=INTEGER} and
+			</if>
+			<if test="workWay !=null">
+					WORK_WAY = #{workWay,jdbcType=INTEGER} and
+			</if>
+			<if test="proPlace !=null">
+					PRO_PLACE = #{proPlace,jdbcType=INTEGER} and
+			</if>
+			<if test="freeTravel !=null">
+					FREE_TRAVEL = #{freeTravel,jdbcType=INTEGER} and
+			</if>
+			<if test="tag !=null">
+					TAG = #{idealMoney,jdbcType=VARCHAR} and
+			</if>
+			<if test="status !=null">
+					STATUS = #{status,jdbcType=INTEGER} and
+			</if>
+			<if test="height !=null">
+					HEIGHT = #{height,jdbcType=VARCHAR} and
+			</if>
+  		</where>
+  	</trim>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t004_resume
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+		<include refid="Base_Column_List" />
+	from t004_resume
+		<include refid="selectByParamsWhere" />
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t004_resume
+		<include refid="selectByParamsWhere" />
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t004_resume
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.Resume" >
+    insert into t004_resume (ID, PERSONAL_ID, HEAD, 
+      NAME, SEX, PROFESSIONAL, 
+      SCHOOL, DEGREE, QQ, 
+      PHONE, EMAIL, CITY, 
+      BIRTHDAY, WORK_YEAR, MARRIAGE, 
+      ORIGIN, IDEAL_JOB, IDEAL_PLACE, 
+      IDEAL_MONEY, WORK_WAY, FREE_TRAVEL, 
+      PRO_PLACE, TAG, STATUS, 
+      HEIGHT, WORK_EXP, `DESC`
+      )
+    values (#{id,jdbcType=VARCHAR}, #{personalId,jdbcType=VARCHAR}, #{head,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{professional,jdbcType=VARCHAR}, 
+      #{school,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=VARCHAR}, #{workYear,jdbcType=VARCHAR}, #{marriage,jdbcType=VARCHAR}, 
+      #{origin,jdbcType=VARCHAR}, #{idealJob,jdbcType=VARCHAR}, #{idealPlace,jdbcType=VARCHAR}, 
+      #{idealMoney,jdbcType=INTEGER}, #{workWay,jdbcType=INTEGER}, #{freeTravel,jdbcType=INTEGER}, 
+      #{proPlace,jdbcType=INTEGER}, #{tag,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{height,jdbcType=VARCHAR}, #{workExp,jdbcType=LONGVARCHAR}, #{desc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.Resume" >
+    insert into t004_resume
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="personalId != null" >
+        PERSONAL_ID,
+      </if>
+      <if test="head != null" >
+        HEAD,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="professional != null" >
+        PROFESSIONAL,
+      </if>
+      <if test="school != null" >
+        SCHOOL,
+      </if>
+      <if test="degree != null" >
+        DEGREE,
+      </if>
+      <if test="qq != null" >
+        QQ,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="city != null" >
+        CITY,
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY,
+      </if>
+      <if test="workYear != null" >
+        WORK_YEAR,
+      </if>
+      <if test="marriage != null" >
+        MARRIAGE,
+      </if>
+      <if test="origin != null" >
+        ORIGIN,
+      </if>
+      <if test="idealJob != null" >
+        IDEAL_JOB,
+      </if>
+      <if test="idealPlace != null" >
+        IDEAL_PLACE,
+      </if>
+      <if test="idealMoney != null" >
+        IDEAL_MONEY,
+      </if>
+      <if test="workWay != null" >
+        WORK_WAY,
+      </if>
+      <if test="freeTravel != null" >
+        FREE_TRAVEL,
+      </if>
+      <if test="proPlace != null" >
+        PRO_PLACE,
+      </if>
+      <if test="tag != null" >
+        TAG,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="height != null" >
+        HEIGHT,
+      </if>
+      <if test="workExp != null" >
+        WORK_EXP,
+      </if>
+      <if test="desc != null" >
+        `DESC`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="personalId != null" >
+        #{personalId,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="professional != null" >
+        #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="marriage != null" >
+        #{marriage,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="idealJob != null" >
+        #{idealJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idealPlace != null" >
+        #{idealPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="idealMoney != null" >
+        #{idealMoney,jdbcType=INTEGER},
+      </if>
+      <if test="workWay != null" >
+        #{workWay,jdbcType=INTEGER},
+      </if>
+      <if test="freeTravel != null" >
+        #{freeTravel,jdbcType=INTEGER},
+      </if>
+      <if test="proPlace != null" >
+        #{proPlace,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null" >
+        #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="workExp != null" >
+        #{workExp,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.Resume" >
+    update t004_resume
+    <set >
+      <if test="personalId != null" >
+        PERSONAL_ID = #{personalId,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        HEAD = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="professional != null" >
+        PROFESSIONAL = #{professional,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null" >
+        SCHOOL = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="degree != null" >
+        DEGREE = #{degree,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        CITY = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="workYear != null" >
+        WORK_YEAR = #{workYear,jdbcType=VARCHAR},
+      </if>
+      <if test="marriage != null" >
+        MARRIAGE = #{marriage,jdbcType=VARCHAR},
+      </if>
+      <if test="origin != null" >
+        ORIGIN = #{origin,jdbcType=VARCHAR},
+      </if>
+      <if test="idealJob != null" >
+        IDEAL_JOB = #{idealJob,jdbcType=VARCHAR},
+      </if>
+      <if test="idealPlace != null" >
+        IDEAL_PLACE = #{idealPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="idealMoney != null" >
+        IDEAL_MONEY = #{idealMoney,jdbcType=INTEGER},
+      </if>
+      <if test="workWay != null" >
+        WORK_WAY = #{workWay,jdbcType=INTEGER},
+      </if>
+      <if test="freeTravel != null" >
+        FREE_TRAVEL = #{freeTravel,jdbcType=INTEGER},
+      </if>
+      <if test="proPlace != null" >
+        PRO_PLACE = #{proPlace,jdbcType=INTEGER},
+      </if>
+      <if test="tag != null" >
+        TAG = #{tag,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        HEIGHT = #{height,jdbcType=VARCHAR},
+      </if>
+      <if test="workExp != null" >
+        WORK_EXP = #{workExp,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="desc != null" >
+        `DESC` = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.Resume" >
+    update t004_resume
+    set PERSONAL_ID = #{personalId,jdbcType=VARCHAR},
+      HEAD = #{head,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      SEX = #{sex,jdbcType=INTEGER},
+      PROFESSIONAL = #{professional,jdbcType=VARCHAR},
+      SCHOOL = #{school,jdbcType=VARCHAR},
+      DEGREE = #{degree,jdbcType=VARCHAR},
+      QQ = #{qq,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      CITY = #{city,jdbcType=VARCHAR},
+      BIRTHDAY = #{birthday,jdbcType=VARCHAR},
+      WORK_YEAR = #{workYear,jdbcType=VARCHAR},
+      MARRIAGE = #{marriage,jdbcType=VARCHAR},
+      ORIGIN = #{origin,jdbcType=VARCHAR},
+      IDEAL_JOB = #{idealJob,jdbcType=VARCHAR},
+      IDEAL_PLACE = #{idealPlace,jdbcType=VARCHAR},
+      IDEAL_MONEY = #{idealMoney,jdbcType=INTEGER},
+      WORK_WAY = #{workWay,jdbcType=INTEGER},
+      FREE_TRAVEL = #{freeTravel,jdbcType=INTEGER},
+      PRO_PLACE = #{proPlace,jdbcType=INTEGER},
+      TAG = #{tag,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      HEIGHT = #{height,jdbcType=VARCHAR},
+      WORK_EXP = #{workExp,jdbcType=LONGVARCHAR},
+      `DESC` = #{desc,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

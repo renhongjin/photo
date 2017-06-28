@@ -1,0 +1,6 @@
+{
+	'imgServer' : 'http://localhost',
+	'imgPath' : 'D:/imgs/photo',
+	'thumbImgPath' : 'D:/imgs/thumb',
+	'headImg' : 'D:/imgs/head'
+}

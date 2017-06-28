@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.CompanyMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.Company" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="head" property="head" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="PERSON" property="person" jdbcType="VARCHAR" />
+    <result column="TEL" property="tel" jdbcType="VARCHAR" />
+    <result column="SHENG" property="sheng" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="STUDIO_NUM" property="studioNum" jdbcType="INTEGER" />
+    <result column="AREA" property="area" jdbcType="INTEGER" />
+    <result column="STAFF_NUM" property="staffNum" jdbcType="INTEGER" />
+    <result column="LOW_NUM" property="lowNum" jdbcType="INTEGER" />
+    <result column="BUSY_NUM" property="busyNum" jdbcType="INTEGER" />
+    <result column="STAGE" property="stage" jdbcType="INTEGER" />
+    <result column="CREATE_DAY" property="createDay" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_LONG" property="createLong" jdbcType="VARCHAR" />
+    <result column="CREATE_IP" property="createIp" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="VALID" property="valid" jdbcType="INTEGER" />
+    <result column="VALID_MD5" property="validMd5" jdbcType="VARCHAR" />
+    <result column="SLOGAN" property="slogan" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.photo.bean.mapper.Company" extends="BaseResultMap" >
+    <result column="DESC" property="desc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME,head, MOBILE, PERSON, TEL, SHENG, CITY_NAME, ADDRESS, STUDIO_NUM, AREA, STAFF_NUM, 
+    LOW_NUM, BUSY_NUM, STAGE, CREATE_DAY, CREATE_TIME, CREATE_LONG, CREATE_IP, PASSWORD, 
+    EMAIL, VALID, VALID_MD5, SLOGAN
+  </sql>
+  <sql id="Blob_Column_List" >
+    `DESC`
+  </sql>
+  
+  <sql id="selectByParamsWhere">
+  	<trim suffixOverrides=" and | or">
+  		<where>
+  			<if test="id !=null">
+					ID = #{id,jdbcType=VARCHAR} and
+			</if>
+			<if test="name !=null">
+					NAME = #{name,jdbcType=VARCHAR} and
+			</if>
+			<if test="head !=null">
+					head = #{head,jdbcType=VARCHAR} and
+			</if>
+			<if test="mobile !=null">
+					MOBILE = #{mobile,jdbcType=VARCHAR} and
+			</if>
+			<if test="person !=null">
+					PERSON = #{person,jdbcType=VARCHAR} and
+			</if>
+			<if test="tel !=null">
+					TEL = #{tel,jdbcType=VARCHAR} and
+			</if>
+			<if test="sheng !=null">
+					SHENG = #{sheng,jdbcType=VARCHAR} and
+			</if>
+			<if test="cityName !=null">
+					CITY_NAME = #{cityName,jdbcType=INTEGER} and
+			</if>
+			<if test="address !=null">
+					ADDRESS = #{address,jdbcType=VARCHAR} and
+			</if>
+			<if test="studioNum !=null">
+					STUDIO_NUM = #{studioNum,jdbcType=INTEGER} and
+			</if>
+			<if test="area !=null">
+					AREA = #{area,jdbcType=INTEGER} and
+			</if>
+			<if test="staffNum !=null">
+					STAFF_NUM = #{staffNum,jdbcType=INTEGER} and
+			</if>
+			<if test="lowNum !=null">
+					LOW_NUM = #{lowNum,jdbcType=INTEGER} and
+			</if>
+			<if test="busyNum !=null">
+					BUSY_NUM = #{busyNum,jdbcType=INTEGER} and
+			</if>
+			<if test="stage !=null">
+					STAGE = #{stage,jdbcType=INTEGER} and
+			</if>
+			<if test="createDay !=null">
+					CREATE_DAY = #{createDay,jdbcType=VARCHAR} and
+			</if>
+			<if test="createTime !=null">
+					CREATE_TIME = #{createTime,jdbcType=VARCHAR} and
+			</if>
+			<if test="createLong !=null">
+					CREATE_LONG = #{createLong,jdbcType=VARCHAR} and
+			</if>
+			<if test="createIp !=null">
+					CREATE_IP = #{createIp,jdbcType=VARCHAR} and
+			</if>        
+			<if test="password !=null">
+					PASSWORD = #{password,jdbcType=VARCHAR} and
+			</if>
+			<if test="email !=null">
+					EMAIL = #{email,jdbcType=VARCHAR} and
+			</if>
+			<if test="valid !=null">
+					VALID = #{valid,jdbcType=VARCHAR} and
+			</if>
+			<if test="validMd5 !=null">
+					VALID_MD5 = #{validMd5,jdbcType=VARCHAR} and
+			</if>
+			<if test="slogan !=null">
+					SLOGAN = #{slogan,jdbcType=VARCHAR} and
+			</if>
+  		</where>
+  	</trim>
+  </sql>
+  
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t006_cmp
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+		<include refid="Base_Column_List" />
+		,
+    	<include refid="Blob_Column_List" />
+	from t006_cmp
+		<include refid="selectByParamsWhere" />
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t006_cmp
+		<include refid="selectByParamsWhere" />
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t006_cmp
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.Company" >
+    insert into t006_cmp (ID, NAME,head, MOBILE, 
+      PERSON, TEL, SHENG, 
+      CITY_NAME, ADDRESS, STUDIO_NUM, 
+      AREA, STAFF_NUM, LOW_NUM, 
+      BUSY_NUM, STAGE, CREATE_DAY, 
+      CREATE_TIME, CREATE_LONG, CREATE_IP, 
+      PASSWORD, EMAIL, VALID, 
+      VALID_MD5, SLOGAN, `DESC`
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{head,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{person,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{sheng,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{studioNum,jdbcType=INTEGER}, 
+      #{area,jdbcType=INTEGER}, #{staffNum,jdbcType=INTEGER}, #{lowNum,jdbcType=INTEGER}, 
+      #{busyNum,jdbcType=INTEGER}, #{stage,jdbcType=INTEGER}, #{createDay,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=VARCHAR}, #{createLong,jdbcType=VARCHAR}, #{createIp,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{valid,jdbcType=INTEGER}, 
+      #{validMd5,jdbcType=VARCHAR}, #{slogan,jdbcType=VARCHAR}, #{desc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.Company" >
+    insert into t006_cmp
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="head != null" >
+        head,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="person != null" >
+        PERSON,
+      </if>
+      <if test="tel != null" >
+        TEL,
+      </if>
+      <if test="sheng != null" >
+        SHENG,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="studioNum != null" >
+        STUDIO_NUM,
+      </if>
+      <if test="area != null" >
+        AREA,
+      </if>
+      <if test="staffNum != null" >
+        STAFF_NUM,
+      </if>
+      <if test="lowNum != null" >
+        LOW_NUM,
+      </if>
+      <if test="busyNum != null" >
+        BUSY_NUM,
+      </if>
+      <if test="stage != null" >
+        STAGE,
+      </if>
+      <if test="createDay != null" >
+        CREATE_DAY,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createLong != null" >
+        CREATE_LONG,
+      </if>
+      <if test="createIp != null" >
+        CREATE_IP,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="valid != null" >
+        VALID,
+      </if>
+      <if test="validMd5 != null" >
+        VALID_MD5,
+      </if>
+      <if test="slogan != null" >
+        SLOGAN,
+      </if>
+      <if test="desc != null" >
+        `DESC`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null" >
+        #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="sheng != null" >
+        #{sheng,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="studioNum != null" >
+        #{studioNum,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="staffNum != null" >
+        #{staffNum,jdbcType=INTEGER},
+      </if>
+      <if test="lowNum != null" >
+        #{lowNum,jdbcType=INTEGER},
+      </if>
+      <if test="busyNum != null" >
+        #{busyNum,jdbcType=INTEGER},
+      </if>
+      <if test="stage != null" >
+        #{stage,jdbcType=INTEGER},
+      </if>
+      <if test="createDay != null" >
+        #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createLong != null" >
+        #{createLong,jdbcType=VARCHAR},
+      </if>
+      <if test="createIp != null" >
+        #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="validMd5 != null" >
+        #{validMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="slogan != null" >
+        #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.Company" >
+    update t006_cmp
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="head != null" >
+        head = #{head,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="person != null" >
+        PERSON = #{person,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        TEL = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="sheng != null" >
+        SHENG = #{sheng,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="studioNum != null" >
+        STUDIO_NUM = #{studioNum,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        AREA = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="staffNum != null" >
+        STAFF_NUM = #{staffNum,jdbcType=INTEGER},
+      </if>
+      <if test="lowNum != null" >
+        LOW_NUM = #{lowNum,jdbcType=INTEGER},
+      </if>
+      <if test="busyNum != null" >
+        BUSY_NUM = #{busyNum,jdbcType=INTEGER},
+      </if>
+      <if test="stage != null" >
+        STAGE = #{stage,jdbcType=INTEGER},
+      </if>
+      <if test="createDay != null" >
+        CREATE_DAY = #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createLong != null" >
+        CREATE_LONG = #{createLong,jdbcType=VARCHAR},
+      </if>
+      <if test="createIp != null" >
+        CREATE_IP = #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        VALID = #{valid,jdbcType=INTEGER},
+      </if>
+      <if test="validMd5 != null" >
+        VALID_MD5 = #{validMd5,jdbcType=VARCHAR},
+      </if>
+      <if test="slogan != null" >
+        SLOGAN = #{slogan,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        `DESC` = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.photo.bean.mapper.Company" >
+    update t006_cmp
+    set NAME = #{name,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      PERSON = #{person,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      SHENG = #{sheng,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      STUDIO_NUM = #{studioNum,jdbcType=INTEGER},
+      AREA = #{area,jdbcType=INTEGER},
+      STAFF_NUM = #{staffNum,jdbcType=INTEGER},
+      LOW_NUM = #{lowNum,jdbcType=INTEGER},
+      BUSY_NUM = #{busyNum,jdbcType=INTEGER},
+      STAGE = #{stage,jdbcType=INTEGER},
+      CREATE_DAY = #{createDay,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_LONG = #{createLong,jdbcType=VARCHAR},
+      CREATE_IP = #{createIp,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      VALID = #{valid,jdbcType=INTEGER},
+      VALID_MD5 = #{validMd5,jdbcType=VARCHAR},
+      SLOGAN = #{slogan,jdbcType=VARCHAR},
+      `DESC` = #{desc,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.Company" >
+    update t006_cmp
+    set NAME = #{name,jdbcType=VARCHAR},
+      head = #{head,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      PERSON = #{person,jdbcType=VARCHAR},
+      TEL = #{tel,jdbcType=VARCHAR},
+      SHENG = #{sheng,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      STUDIO_NUM = #{studioNum,jdbcType=INTEGER},
+      AREA = #{area,jdbcType=INTEGER},
+      STAFF_NUM = #{staffNum,jdbcType=INTEGER},
+      LOW_NUM = #{lowNum,jdbcType=INTEGER},
+      BUSY_NUM = #{busyNum,jdbcType=INTEGER},
+      STAGE = #{stage,jdbcType=INTEGER},
+      CREATE_DAY = #{createDay,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_LONG = #{createLong,jdbcType=VARCHAR},
+      CREATE_IP = #{createIp,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      VALID = #{valid,jdbcType=INTEGER},
+      VALID_MD5 = #{validMd5,jdbcType=VARCHAR},
+      SLOGAN = #{slogan,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

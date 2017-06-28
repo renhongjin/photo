@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.DeliverLogMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.DeliverLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="deliver_id" property="deliverId" jdbcType="VARCHAR" />
+    <result column="changeStatus" property="changestatus" jdbcType="INTEGER" />
+    <result column="create_day" property="createDay" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="create_time_long" property="createTimeLong" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, deliver_id, changeStatus, create_day, create_time, create_time_long
+  </sql>
+  <sql id="selectByParamsWhere">
+		<trim suffixOverrides=" and | or">
+			<where>
+				<if test="id !=null">
+					id = #{id,jdbcType=VARCHAR} and
+				</if>
+				<if test="deliverId !=null">
+					deliver_id = #{deliverId,jdbcType=VARCHAR} and
+				</if>
+				<if test="changestatus !=null">
+					changeStatus = #{changestatus,jdbcType=VARCHAR} and
+				</if>
+				<if test="createDay !=null">
+					create_day = #{createDay,jdbcType=VARCHAR} and
+				</if>
+				<if test="createTime !=null">
+					create_time = #{createTime,jdbcType=VARCHAR} and
+				</if>
+			</where>
+		</trim>
+  </sql>
+    <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+	  	select
+			<include refid="Base_Column_List" />
+		from t011_deliver_log
+			<include refid="selectByParamsWhere" />
+		<if test=" orderField != null and sortType != null">
+				order by ${orderField} ${sortType} 
+		</if>
+		<if test=" pageIndex != null and pageNum != null">
+				limit ${pageIndex},${pageNum}
+		</if>
+  </select>
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t011_deliver_log
+		<include refid="selectByParamsWhere" />
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t011_deliver_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t011_deliver_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.DeliverLog" >
+    insert into t011_deliver_log (id, deliver_id, changeStatus, 
+      create_day, create_time, create_time_long
+      )
+    values (#{id,jdbcType=VARCHAR}, #{deliverId,jdbcType=VARCHAR}, #{changestatus,jdbcType=INTEGER}, 
+      #{createDay,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, #{createTimeLong,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.DeliverLog" >
+    insert into t011_deliver_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="deliverId != null" >
+        deliver_id,
+      </if>
+      <if test="changestatus != null" >
+        changeStatus,
+      </if>
+      <if test="createDay != null" >
+        create_day,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createTimeLong != null" >
+        create_time_long,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverId != null" >
+        #{deliverId,jdbcType=VARCHAR},
+      </if>
+      <if test="changestatus != null" >
+        #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDay != null" >
+        #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimeLong != null" >
+        #{createTimeLong,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.DeliverLog" >
+    update t011_deliver_log
+    <set >
+      <if test="deliverId != null" >
+        deliver_id = #{deliverId,jdbcType=VARCHAR},
+      </if>
+      <if test="changestatus != null" >
+        changeStatus = #{changestatus,jdbcType=INTEGER},
+      </if>
+      <if test="createDay != null" >
+        create_day = #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimeLong != null" >
+        create_time_long = #{createTimeLong,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.DeliverLog" >
+    update t011_deliver_log
+    set deliver_id = #{deliverId,jdbcType=VARCHAR},
+      changeStatus = #{changestatus,jdbcType=INTEGER},
+      create_day = #{createDay,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      create_time_long = #{createTimeLong,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

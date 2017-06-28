@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.CityMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.City" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="CITY_FLAG" property="cityFlag" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="PROVICE_ID" property="proviceId" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, CITY_FLAG, CITY_NAME, PROVICE_ID
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t008_city
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <sql id="selectByParamsWhere">
+		<trim suffixOverrides=" and | or">
+			<where>
+				<if test="id !=null">
+					id = #{id,jdbcType=VARCHAR} and
+				</if>
+				<if test="cityFlag !=null">
+					CITY_FLAG = #{cityFlag,jdbcType=VARCHAR} and
+				</if>
+				<if test="cityName !=null">
+					CITY_NAME = #{cityName,jdbcType=VARCHAR} and
+				</if>
+				<if test="proviceId !=null">
+					PROVICE_ID = #{proviceId,jdbcType=VARCHAR} and
+				</if>
+			</where>
+		</trim>
+  </sql>
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+		<include refid="Base_Column_List" />
+	from t008_city
+		<include refid="selectByParamsWhere" />
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t008_city
+		<include refid="selectByParamsWhere" />
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t008_city
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.City" >
+    insert into t008_city (ID, CITY_FLAG, CITY_NAME, 
+      PROVICE_ID)
+    values (#{id,jdbcType=VARCHAR}, #{cityFlag,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{proviceId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.City" >
+    insert into t008_city
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="cityFlag != null" >
+        CITY_FLAG,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="proviceId != null" >
+        PROVICE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="cityFlag != null" >
+        #{cityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="proviceId != null" >
+        #{proviceId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.City" >
+    update t008_city
+    <set >
+      <if test="cityFlag != null" >
+        CITY_FLAG = #{cityFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="proviceId != null" >
+        PROVICE_ID = #{proviceId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.City" >
+    update t008_city
+    set CITY_FLAG = #{cityFlag,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      PROVICE_ID = #{proviceId,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

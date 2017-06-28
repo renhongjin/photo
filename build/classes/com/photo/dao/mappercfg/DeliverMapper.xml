@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.DeliverMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.Deliver" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="PERSONAL_ID" property="personalId" jdbcType="VARCHAR" />
+    <result column="RECRUIT_ID" property="recruitId" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="CMP_ID" property="cmpId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="VARCHAR" />
+    <result column="CREATE_DAY" property="createDay" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME_LONG" property="createTimeLong" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, PERSONAL_ID, RECRUIT_ID, STATUS, CMP_ID, CREATE_TIME, CREATE_DAY, CREATE_TIME_LONG
+  </sql>
+  <sql id="selectByParamsWhere">
+		<trim suffixOverrides=" and | or">
+			<where>
+				<if test="id !=null">
+					ID = #{id,jdbcType=VARCHAR} and
+				</if>
+				<if test="personalId !=null">
+					PERSONAL_ID = #{personalId,jdbcType=VARCHAR} and
+				</if>
+				<if test="recruitId !=null">
+					RECRUIT_ID = #{recruitId,jdbcType=VARCHAR} and
+				</if>
+				<if test="status !=null">
+					STATUS = #{status,jdbcType=INTEGER} and
+				</if>
+				<if test="cmpId !=null">
+					CMP_ID = #{cmpId,jdbcType=VARCHAR} and
+				</if>
+				<if test="createTime !=null">
+					CREATE_TIME = #{createTime,jdbcType=VARCHAR} and
+				</if>
+				<if test="createDay !=null">
+					CREATE_DAY = #{createDay,jdbcType=VARCHAR} and
+				</if>
+				<if test="createTimeLong !=null">
+					CREATE_TIME_LONG = #{createTimeLong,jdbcType=VARCHAR} and
+				</if>
+			</where>
+		</trim>
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t009_deliver
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+		<include refid="Base_Column_List" />
+	from t009_deliver
+		<include refid="selectByParamsWhere" />
+	order by CREATE_TIME_LONG desc
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t009_deliver
+		<include refid="selectByParamsWhere" />
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t009_deliver
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.Deliver" >
+    insert into t009_deliver (ID, PERSONAL_ID, RECRUIT_ID, 
+      STATUS, CMP_ID, CREATE_TIME, 
+      CREATE_DAY, CREATE_TIME_LONG)
+    values (#{id,jdbcType=VARCHAR}, #{personalId,jdbcType=VARCHAR}, #{recruitId,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{cmpId,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{createDay,jdbcType=VARCHAR}, #{createTimeLong,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.Deliver" >
+    insert into t009_deliver
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="personalId != null" >
+        PERSONAL_ID,
+      </if>
+      <if test="recruitId != null" >
+        RECRUIT_ID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="cmpId != null" >
+        CMP_ID,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="createDay != null" >
+        CREATE_DAY,
+      </if>
+      <if test="createTimeLong != null" >
+        CREATE_TIME_LONG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="personalId != null" >
+        #{personalId,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitId != null" >
+        #{recruitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cmpId != null" >
+        #{cmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createDay != null" >
+        #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimeLong != null" >
+        #{createTimeLong,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.Deliver" >
+    update t009_deliver
+    <set >
+      <if test="personalId != null" >
+        PERSONAL_ID = #{personalId,jdbcType=VARCHAR},
+      </if>
+      <if test="recruitId != null" >
+        RECRUIT_ID = #{recruitId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="cmpId != null" >
+        CMP_ID = #{cmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="createDay != null" >
+        CREATE_DAY = #{createDay,jdbcType=VARCHAR},
+      </if>
+      <if test="createTimeLong != null" >
+        CREATE_TIME_LONG = #{createTimeLong,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.Deliver" >
+    update t009_deliver
+    set PERSONAL_ID = #{personalId,jdbcType=VARCHAR},
+      RECRUIT_ID = #{recruitId,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      CMP_ID = #{cmpId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=VARCHAR},
+      CREATE_DAY = #{createDay,jdbcType=VARCHAR},
+      CREATE_TIME_LONG = #{createTimeLong,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

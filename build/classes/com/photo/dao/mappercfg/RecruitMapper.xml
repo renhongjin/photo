@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.photo.dao.mapper.RecruitMapper" >
+  <resultMap id="BaseResultMap" type="com.photo.bean.mapper.Recruit" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="JOB_NAME" property="jobName" jdbcType="VARCHAR" />
+    <result column="JOB_PLACE" property="jobPlace" jdbcType="VARCHAR" />
+    <result column="SALARY" property="salary" jdbcType="INTEGER" />
+    <result column="RAISE" property="raise" jdbcType="INTEGER" />
+    <result column="TRAVEL_FEE" property="travelFee" jdbcType="INTEGER" />
+    <result column="FOOD_ROOM" property="foodRoom" jdbcType="INTEGER" />
+    <result column="EDU" property="edu" jdbcType="INTEGER" />
+    <result column="WORK_TIME" property="workTime" jdbcType="VARCHAR" />
+    <result column="PERSON_NUM" property="personNum" jdbcType="INTEGER" />
+    <result column="WORK_AGE" property="workAge" jdbcType="INTEGER" />
+    <result column="SEX" property="sex" jdbcType="INTEGER" />
+    <result column="WORK_WAY" property="workWay" jdbcType="INTEGER" />
+    <result column="CMP_ID" property="cmpId" jdbcType="VARCHAR" />
+    <result column="ADD_DAY" property="addDay" jdbcType="VARCHAR" />
+    <result column="ADD_TIME" property="addTime" jdbcType="VARCHAR" />
+    <result column="ADD_TIME_LONG" property="addTimeLong" jdbcType="VARCHAR" />
+    <result column="STATE" property="state" jdbcType="INTEGER" />
+    <result column="SCAN_TIME" property="scanTime" jdbcType="INTEGER" />
+    <result column="DELIVER_TIMES" property="deliverTimes" jdbcType="INTEGER" />
+    <result column="ADVANTAGE" property="advantage" jdbcType="VARCHAR" />
+    <result column="DESC" property="desc" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, JOB_NAME,JOB_PLACE, SALARY, RAISE, TRAVEL_FEE, FOOD_ROOM, EDU, WORK_TIME, PERSON_NUM, WORK_AGE, 
+    SEX, WORK_WAY, CMP_ID, ADD_DAY, ADD_TIME, ADD_TIME_LONG, STATE, SCAN_TIME, DELIVER_TIMES, 
+    ADVANTAGE,`DESC`
+  </sql>
+  <sql id="selectByParamsWhere">
+  	<trim suffixOverrides=" and | or">
+  		<where>
+  			<if test="id !=null">
+					ID = #{id,jdbcType=VARCHAR} and
+			</if>
+			<if test="jobName !=null">
+					JOB_NAME = #{jobName,jdbcType=VARCHAR} and
+			</if>
+			<if test="jobPlace !=null">
+					JOB_PLACE = #{jobPlace,jdbcType=VARCHAR} and
+			</if>
+			<if test="salary !=null">
+					SALARY = #{salary,jdbcType=INTEGER} and
+			</if>
+			<if test="raise !=null">
+					RAISE = #{raise,jdbcType=INTEGER} and
+			</if>
+			<if test="travelFee !=null">
+					TRAVEL_FEE = #{travelFee,jdbcType=INTEGER} and
+			</if>
+			<if test="foodRoom !=null">
+					FOOD_ROOM = #{foodRoom,jdbcType=INTEGER} and
+			</if>
+			<if test="edu !=null">
+					EDU = #{edu,jdbcType=INTEGER} and
+			</if>
+			<if test="workTime !=null">
+					WORK_TIME = #{workTime,jdbcType=VARCHAR} and
+			</if>   
+			<if test="personNum !=null">
+					PERSON_NUM = #{personNum,jdbcType=INTEGER} and
+			</if>
+			<if test="workAge !=null">
+					WORK_AGE = #{workAge,jdbcType=INTEGER} and
+			</if>
+			<if test="sex !=null">
+					SEX = #{sex,jdbcType=INTEGER} and
+			</if>
+			<if test="workWay !=null">
+					WORK_WAY = #{valid,jdbcType=INTEGER} and
+			</if>
+			<if test="cmpId !=null">
+					CMP_ID = #{cmpId,jdbcType=VARCHAR} and
+			</if>
+			<if test="addDay !=null">
+					ADD_DAY = #{addDay,jdbcType=VARCHAR} and
+			</if>
+			<if test="addTime !=null">
+					ADD_TIME = #{addTime,jdbcType=VARCHAR} and
+			</if>
+			<if test="addTimeLong !=null">
+					ADD_TIME_LONG = #{addTimeLong,jdbcType=VARCHAR} and
+			</if>
+			<if test="state !=null">
+					STATE = #{state,jdbcType=INTEGER} and
+			</if>
+			<if test="scanTime !=null">
+					SCAN_TIME = #{scanTime,jdbcType=INTEGER} and
+			</if>
+			<if test="deliverTimes !=null">
+					DELIVER_TIMES = #{deliverTimes,jdbcType=INTEGER} and
+			</if>
+			<if test="advantage !=null">
+					ADVANTAGE = #{advantage,jdbcType=VARCHAR} and
+			</if>
+  		</where>
+  	</trim>
+  </sql>
+  <sql id="searchRecruitParamsWhere">
+  	<trim suffixOverrides=" and | or">
+  		<where>
+  			<if test="state !=null">
+					recruit.STATE = #{state,jdbcType=INTEGER} and
+			</if>
+  			<if test="jobName !=null">
+					recruit.JOB_NAME = #{jobName,jdbcType=VARCHAR} and
+			</if>
+			<if test="jobPlace !=null">
+					recruit.JOB_PLACE = #{jobPlace,jdbcType=VARCHAR} and
+			</if>
+			<if test="workAge !=null">
+					recruit.WORK_AGE = #{workAge,jdbcType=INTEGER} and
+			</if>
+			<if test="edu !=null">
+					recruit.edu = #{edu,jdbcType=INTEGER} and
+			</if>
+			<if test="workWay !=null">
+					recruit.WORK_WAY = #{workWay,jdbcType=INTEGER} and
+			</if>
+		</where>
+	</trim>
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t005_recruit
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByParams" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select
+		<include refid="Base_Column_List" />
+	from t005_recruit
+		<include refid="selectByParamsWhere" />
+	<if test=" sortField != null and sortType != null">
+			order by ${sortField} ${sortType}
+	</if>
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <select id="selectCountByParams" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select
+		count(id)
+		from t005_recruit
+		<include refid="selectByParamsWhere" />
+  </select>
+  
+  <select id="searchRecruitCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+  	select count(*) 
+  	from 
+  		t005_recruit recruit
+  		LEFT JOIN t006_cmp cmp
+  	on 
+  		recruit.CMP_ID=cmp.ID 
+  	<include refid="searchRecruitParamsWhere"/>
+  	<if test=" sortField != null and sortType != null">
+			order by ${sortField} ${sortType}
+	</if>
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  <select id="searchRecruit" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select 
+  	recruit.ID, recruit.JOB_NAME, recruit.SALARY, recruit.RAISE, recruit.TRAVEL_FEE, recruit.FOOD_ROOM, recruit.EDU, recruit.WORK_TIME, recruit.PERSON_NUM, recruit.WORK_AGE, 
+    recruit.SEX, recruit.WORK_WAY, recruit.CMP_ID, recruit.ADD_DAY, recruit.ADD_TIME, recruit.ADD_TIME_LONG, recruit.STATE, recruit.SCAN_TIME, recruit.DELIVER_TIMES, 
+    recruit.ADVANTAGE,recruit.`DESC`
+  	FROM 
+  		t005_recruit recruit
+  		LEFT JOIN t006_cmp cmp
+  	on 
+  		recruit.CMP_ID=cmp.ID 
+  	<include refid="searchRecruitParamsWhere"/>
+  	<if test=" sortField != null and sortType != null">
+			order by ${sortField} ${sortType}
+	</if>
+	<if test=" pageIndex != null and pageNum != null">
+			limit ${pageIndex},${pageNum}
+	</if>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t005_recruit
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.photo.bean.mapper.Recruit" >
+    insert into t005_recruit (ID, JOB_NAME,JOB_PLACE, SALARY, 
+      RAISE, TRAVEL_FEE, FOOD_ROOM, 
+      EDU, WORK_TIME, PERSON_NUM, 
+      WORK_AGE, SEX, WORK_WAY, 
+      CMP_ID, ADD_DAY, ADD_TIME, 
+      ADD_TIME_LONG, STATE, SCAN_TIME, 
+      DELIVER_TIMES, ADVANTAGE, `DESC`
+      )
+    values (#{id,jdbcType=VARCHAR}, #{jobName,jdbcType=VARCHAR},#{jobPlace,jdbcType=VARCHAR}, #{salary,jdbcType=INTEGER}, 
+      #{raise,jdbcType=INTEGER}, #{travelFee,jdbcType=INTEGER}, #{foodRoom,jdbcType=INTEGER}, 
+      #{edu,jdbcType=INTEGER}, #{workTime,jdbcType=VARCHAR}, #{personNum,jdbcType=INTEGER}, 
+      #{workAge,jdbcType=INTEGER}, #{sex,jdbcType=INTEGER}, #{workWay,jdbcType=INTEGER}, 
+      #{cmpId,jdbcType=VARCHAR}, #{addDay,jdbcType=VARCHAR}, #{addTime,jdbcType=VARCHAR}, 
+      #{addTimeLong,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{scanTime,jdbcType=INTEGER}, 
+      #{deliverTimes,jdbcType=INTEGER}, #{advantage,jdbcType=VARCHAR}, #{desc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.photo.bean.mapper.Recruit" >
+    insert into t005_recruit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="jobName != null" >
+        JOB_NAME,
+      </if>
+      <if test="jobPlace != null" >
+        JOB_PLACE,
+      </if>
+      <if test="salary != null" >
+        SALARY,
+      </if>
+      <if test="raise != null" >
+        RAISE,
+      </if>
+      <if test="travelFee != null" >
+        TRAVEL_FEE,
+      </if>
+      <if test="foodRoom != null" >
+        FOOD_ROOM,
+      </if>
+      <if test="edu != null" >
+        EDU,
+      </if>
+      <if test="workTime != null" >
+        WORK_TIME,
+      </if>
+      <if test="personNum != null" >
+        PERSON_NUM,
+      </if>
+      <if test="workAge != null" >
+        WORK_AGE,
+      </if>
+      <if test="sex != null" >
+        SEX,
+      </if>
+      <if test="workWay != null" >
+        WORK_WAY,
+      </if>
+      <if test="cmpId != null" >
+        CMP_ID,
+      </if>
+      <if test="addDay != null" >
+        ADD_DAY,
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME,
+      </if>
+      <if test="addTimeLong != null" >
+        ADD_TIME_LONG,
+      </if>
+      <if test="state != null" >
+        STATE,
+      </if>
+      <if test="scanTime != null" >
+        SCAN_TIME,
+      </if>
+      <if test="deliverTimes != null" >
+        DELIVER_TIMES,
+      </if>
+      <if test="advantage != null" >
+        ADVANTAGE,
+      </if>
+      <if test="desc != null" >
+        `DESC`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="jobName != null" >
+        #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPlace != null" >
+        #{jobPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="raise != null" >
+        #{raise,jdbcType=INTEGER},
+      </if>
+      <if test="travelFee != null" >
+        #{travelFee,jdbcType=INTEGER},
+      </if>
+      <if test="foodRoom != null" >
+        #{foodRoom,jdbcType=INTEGER},
+      </if>
+      <if test="edu != null" >
+        #{edu,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null" >
+        #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="workAge != null" >
+        #{workAge,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="workWay != null" >
+        #{workWay,jdbcType=INTEGER},
+      </if>
+      <if test="cmpId != null" >
+        #{cmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="addDay != null" >
+        #{addDay,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTimeLong != null" >
+        #{addTimeLong,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="scanTime != null" >
+        #{scanTime,jdbcType=INTEGER},
+      </if>
+      <if test="deliverTimes != null" >
+        #{deliverTimes,jdbcType=INTEGER},
+      </if>
+      <if test="advantage != null" >
+        #{advantage,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.photo.bean.mapper.Recruit" >
+    update t005_recruit
+    <set >
+      <if test="jobName != null" >
+        JOB_NAME = #{jobName,jdbcType=VARCHAR},
+      </if>
+      <if test="jobPlace != null" >
+        JOB_PLACE = #{jobPlace,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null" >
+        SALARY = #{salary,jdbcType=INTEGER},
+      </if>
+      <if test="raise != null" >
+        RAISE = #{raise,jdbcType=INTEGER},
+      </if>
+      <if test="travelFee != null" >
+        TRAVEL_FEE = #{travelFee,jdbcType=INTEGER},
+      </if>
+      <if test="foodRoom != null" >
+        FOOD_ROOM = #{foodRoom,jdbcType=INTEGER},
+      </if>
+      <if test="edu != null" >
+        EDU = #{edu,jdbcType=INTEGER},
+      </if>
+      <if test="workTime != null" >
+        WORK_TIME = #{workTime,jdbcType=VARCHAR},
+      </if>
+      <if test="personNum != null" >
+        PERSON_NUM = #{personNum,jdbcType=INTEGER},
+      </if>
+      <if test="workAge != null" >
+        WORK_AGE = #{workAge,jdbcType=INTEGER},
+      </if>
+      <if test="sex != null" >
+        SEX = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="workWay != null" >
+        WORK_WAY = #{workWay,jdbcType=INTEGER},
+      </if>
+      <if test="cmpId != null" >
+        CMP_ID = #{cmpId,jdbcType=VARCHAR},
+      </if>
+      <if test="addDay != null" >
+        ADD_DAY = #{addDay,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="addTimeLong != null" >
+        ADD_TIME_LONG = #{addTimeLong,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        STATE = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="scanTime != null" >
+        SCAN_TIME = #{scanTime,jdbcType=INTEGER},
+      </if>
+      <if test="deliverTimes != null" >
+        DELIVER_TIMES = #{deliverTimes,jdbcType=INTEGER},
+      </if>
+      <if test="advantage != null" >
+        ADVANTAGE = #{advantage,jdbcType=VARCHAR},
+      </if>
+      <if test="desc != null" >
+        `DESC` = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="addScanTime" parameterType="java.lang.String">
+  	update t005_recruit t set t.SCAN_TIME = t.SCAN_TIME+1 where t.ID=#{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="addSendTimes" parameterType="java.lang.String">
+  	update t005_recruit t set t.DELIVER_TIMES = t.DELIVER_TIMES+1 where t.ID=#{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.photo.bean.mapper.Recruit" >
+    update t005_recruit
+    set JOB_NAME = #{jobName,jdbcType=VARCHAR},
+    	JOB_PLACE = #{jobPlace,jdbcType=VARCHAR},
+      SALARY = #{salary,jdbcType=INTEGER},
+      RAISE = #{raise,jdbcType=INTEGER},
+      TRAVEL_FEE = #{travelFee,jdbcType=INTEGER},
+      FOOD_ROOM = #{foodRoom,jdbcType=INTEGER},
+      EDU = #{edu,jdbcType=INTEGER},
+      WORK_TIME = #{workTime,jdbcType=VARCHAR},
+      PERSON_NUM = #{personNum,jdbcType=INTEGER},
+      WORK_AGE = #{workAge,jdbcType=INTEGER},
+      SEX = #{sex,jdbcType=INTEGER},
+      WORK_WAY = #{workWay,jdbcType=INTEGER},
+      CMP_ID = #{cmpId,jdbcType=VARCHAR},
+      ADD_DAY = #{addDay,jdbcType=VARCHAR},
+      ADD_TIME = #{addTime,jdbcType=VARCHAR},
+      ADD_TIME_LONG = #{addTimeLong,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=INTEGER},
+      SCAN_TIME = #{scanTime,jdbcType=INTEGER},
+      DELIVER_TIMES = #{deliverTimes,jdbcType=INTEGER},
+      ADVANTAGE = #{advantage,jdbcType=VARCHAR},
+      `DESC` = #{desc,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

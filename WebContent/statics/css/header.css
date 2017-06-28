@@ -1,0 +1,47 @@
+/**顶部黑色横条**/
+.topbar li{
+	list-style:none outside none;
+	float: left;
+	line-height: 40px;
+}
+.topbar{
+	background-color: black;
+	height: 40px;
+	color: #c4c3c3;
+}
+.topbar a{
+	color: #c4c3c3;
+}
+.topbar a:hover{
+	color: white;
+}
+.topbar .right{
+	position: absolute;
+	right: 30px;
+}
+.topbar .left{
+	margin-left: 30px;
+}
+/**导航菜单**/
+.menubar{
+	height: 56px;
+	background-color: #FAFAFA;
+	border-bottom: solid 1px rgb(171, 171, 171);
+}
+.menubar>ul>li{
+	list-style:none outside none;
+	float: left;
+	line-height: 52px;
+	font-size: 16px;
+	margin-right: 30px;
+}
+.menubar>ul>li:hover{
+	border-bottom: 4px solid  #00838A;
+}
+.menubar>ul{
+	position: absolute;
+	margin-left: 180px;
+}
+.menubar>ul>.active{
+	border-bottom: 4px solid  #00838A;
+}
