@@ -52,6 +52,9 @@
 	                    <value>/toregister.html</value>
 	                    <value>/index.html</value>
 	                    <value>/listCmps.html</value>
+	                    <value>/jobSearch.html</value>
+	                    <value>/city.html</value>
+	                    <value>/toCmpInfo.html</value>
 	                </list>
 	            </property>
 			</bean>
